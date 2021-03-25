@@ -29,15 +29,14 @@ function AppHeader(props) {
               onClick={() => props.onFilterChange('favourites')}>Favourites</li>
           </ul>
         </nav>
-        <nav className="menu-right">
-          <ul>
-          <li
-              className={classNames({
-                active: props.filter === "search"
-              })} 
-              onClick={() => props.onFilterChange('search')}>Search</li>
-          </ul>
-        </nav>
+        <div className="menu-right">
+            <div className="search-input"><input onFocus={() => props.onFilterChange('search')} placeHolder="Search" onChange={props.onSearchInputChange} autoFocus type="text"></input></div>
+          {/* <div
+            className={classNames({
+              active: props.filter === "search"
+            })} 
+            onClick={() => props.onFilterChange('search')}>Search</div> */}
+        </div>
       </div>
     </header>
   )

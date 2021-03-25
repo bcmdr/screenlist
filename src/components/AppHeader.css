@@ -20,19 +20,44 @@ nav ul li {
   display: inline-block;
 }
 
+.menu-right {
+  display: flex;
+  align-items: center;
+}
+
+.menu-left {
+  overflow: auto
+}
+
+.menu-right > div {
+  padding: 0.5rem;
+}
+
+.menu-right .search-input {
+  padding: 0 0.5rem;
+}
+
+.menu-right input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
 .AppHeader .secondary-header {
   background: white;
   padding: 1rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.10);
 }
 
 .AppHeader li {
   padding: 0.5rem;
+  cursor: pointer;
 }
 
-.AppHeader li.active {
+.AppHeader .active {
   background: #111;
   color: white;
   border-radius: 5px;

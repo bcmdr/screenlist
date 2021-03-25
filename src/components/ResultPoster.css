@@ -1,0 +1,69 @@
+.ResultPoster {
+  position: relative;
+  display: flex;
+  background: #111;
+  border-radius: 0.5rem;
+}
+
+.ResultPoster:hover .controls, .ResultPoster:hover .info {
+  visibility: visible;
+}
+
+.ResultPoster img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.info {
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.info .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  overflow: auto;
+  max-height: 150px;
+}
+
+.info .year {
+  margin-top: 0.5rem;
+  font-weight: normal;
+}
+
+.controls {
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 0.5rem;
+  position: absolute;
+  justify-content: center;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.controls button {
+  flex-grow: 1;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  margin: 0.25rem;
+}
