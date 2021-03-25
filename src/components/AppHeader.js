@@ -36,7 +36,7 @@ function AppHeader(props) {
         </nav>
         <div className="menu-right">
             <div className="search-input">
-              <input onFocus={() => props.onFilterChange('search')} placeHolder="Search" onChange={props.onSearchInputChange} onKeyUp={handleKeyUp} autoFocus type="text"></input>
+              <input onFocus={() => props.onFilterChange('search')} placeHolder="Search" onChange={props.onSearchInputChange} onKeyUp={handleKeyUp} onClick={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
             </div>
           {/* <div
             className={classNames({
