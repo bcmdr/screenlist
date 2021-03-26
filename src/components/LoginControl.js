@@ -8,9 +8,9 @@ function LoginControl() {
   return (
     <div className="LoginControl">
       {revealed && 
-        <div>Sign Out</div>
+        <div class="sign-out">Sign Out</div>
       }
-      <img alt="avatar" className="avatar" onClick={(event) => setRevealed(!revealed)}></img>
+      <img alt="Profile" className="avatar" onClick={(event) => setRevealed(!revealed)}></img>
     </div>
   );
 }

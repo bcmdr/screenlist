@@ -14,6 +14,8 @@
 nav ul {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 nav ul li {
@@ -21,31 +23,25 @@ nav ul li {
 }
 
 .menu-right {
+  padding: 1rem;
   display: flex;
   align-items: center;
+  box-shadow: 0 0 0 0px white, -1px 0px 10px 0px rgba(0, 0, 0, .10);
 }
 
 .menu-left {
-  overflow: auto
+  padding: 1rem 2rem 1rem 1rem;
+  overflow: auto;
+  scroll-margin-right: 1rem;
 }
 
 .menu-right > div {
   padding: 0.5rem;
-}
-
-.menu-right .search-input {
-  padding: 0 0.5rem;
-}
-
-.menu-right input {
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: 1px solid black;
+  cursor: pointer;
 }
 
 .AppHeader .secondary-header {
   background: white;
-  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

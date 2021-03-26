@@ -3,11 +3,6 @@ import LoginControl from './LoginControl'
 import classNames from "classnames";
 
 function AppHeader(props) {
-  function handleKeyUp(event) {
-    if (event.code === 'Enter') {
-      document.querySelector('.search-input input').blur()
-    }
-  }
   return (
     <header className="AppHeader">
       <div className="primary-header">
@@ -35,14 +30,11 @@ function AppHeader(props) {
           </ul>
         </nav>
         <div className="menu-right">
-            <div className="search-input">
-              <input onFocus={() => props.onFilterChange('search')} placeHolder="Search" onChange={props.onSearchInputChange} onKeyUp={handleKeyUp} onClick={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
-            </div>
-          {/* <div
+          <div
             className={classNames({
               active: props.filter === "search"
             })} 
-            onClick={() => props.onFilterChange('search')}>Search</div> */}
+            onClick={() => props.onFilterChange('search')}>Search</div>
         </div>
       </div>
     </header>

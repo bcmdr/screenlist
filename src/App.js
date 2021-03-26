@@ -25,8 +25,14 @@ function App() {
 
   function handleFilterChange(filterName) {
     setFilter(filterName)
-    if (filterName !== "search") {
-      document.querySelector('.search-input input').value = "";
+    // if (filterName !== "search") {
+    //   document.querySelector('.search-input input').value = "";
+    // }
+  }
+
+  function handleKeyUp(event) {
+    if (event.code === 'Enter') {
+      document.querySelector('.search input').blur()
     }
   }
 
@@ -44,11 +50,18 @@ function App() {
 
   return (
     <div className="App">
-      <AppHeader filter={filter} onSearchInputChange={handleSearchInputChangeDebounced} onFilterChange={handleFilterChange}></AppHeader>
+      <AppHeader filter={filter} onFilterChange={handleFilterChange}></AppHeader>
       <main>
-        {searchResults && searchResults.map((result) => {
-          return <ResultPoster imageConfig={tmdbConfig.images} result={result} key={result.id}></ResultPoster>
-        })}
+        {filter === 'search' && 
+          <div className="search">
+            <input placeHolder="Search Movie Titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onClick={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
+          </div>
+        }
+        <section className="results">
+          {searchResults && searchResults.map((result) => {
+            return <ResultPoster imageConfig={tmdbConfig.images} result={result} key={result.id}></ResultPoster>
+          })}
+        </section>
       </main>
     </div>
   );
