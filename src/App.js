@@ -8,7 +8,6 @@ function App() {
   const [filter, setFilter] = useState('interested');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [searchResults, setSearchResults] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,14 +24,16 @@ function App() {
 
   function handleFilterChange(filterName) {
     setFilter(filterName)
-    // if (filterName !== "search") {
-    //   document.querySelector('.search-input input').value = "";
-    // }
+    if (filterName === "search") {
+      let el = document.querySelector('.search input');
+      el && el.focus();
+    }
   }
 
   function handleKeyUp(event) {
     if (event.code === 'Enter') {
-      document.querySelector('.search input').blur()
+      let el = document.querySelector('.search input');
+      el && el.blur()
     }
   }
 
@@ -54,7 +55,7 @@ function App() {
       <main>
         {filter === 'search' && 
           <div className="search">
-            <input placeHolder="Search Movie Titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onClick={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
+            <input autoFocus placeHolder="Search movie titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
           </div>
         }
         <section className="results">
