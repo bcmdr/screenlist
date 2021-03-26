@@ -12,7 +12,7 @@ function ResultPoster(props){
       <div className="controls">
         <button>Interested</button>
         <button>Seen</button>
-        <button>Favourite</button>
+        <button>Liked</button>
       </div>
     </li>
   )
