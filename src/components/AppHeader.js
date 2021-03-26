@@ -24,7 +24,7 @@ function AppHeader(props) {
               onClick={() => props.onFilterChange('seen')}>Seen</li>
             <li
               className={classNames({
-                active: props.filter === "likeds"
+                active: props.filter === "liked"
               })} 
               onClick={() => props.onFilterChange('liked')}>Liked</li>
           </ul>
