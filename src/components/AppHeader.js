@@ -24,9 +24,9 @@ function AppHeader(props) {
               onClick={() => props.onFilterChange('seen')}>Seen</li>
             <li
               className={classNames({
-                active: props.filter === "favourites"
+                active: props.filter === "likeds"
               })} 
-              onClick={() => props.onFilterChange('favourites')}>Favourites</li>
+              onClick={() => props.onFilterChange('liked')}>Liked</li>
           </ul>
         </nav>
         <div className="menu-right">
