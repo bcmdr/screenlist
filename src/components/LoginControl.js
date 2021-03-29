@@ -1,16 +1,17 @@
 import './LoginControl.css';
 import { useState } from 'react';
 import onClickOutside from "react-onclickoutside";
-import { FirebaseAuthConsumer } from "@react-firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "firebase/app";
 import "firebase/auth";
 
 function LoggedIn(props) {
+  console.log(props.user);
   return (
     <>
       {props.revealed && 
         <button 
-          class="sign-out" 
+          className="sign-out" 
           onClick={() => {
             firebase
               .app()
@@ -40,20 +41,27 @@ function LoggedOut(props) {
 
 function LoginControl() {
   const [revealed, setRevealed] = useState(false);
+  const [user, loading, error] = useAuthState(firebase.auth());
   LoginControl.handleClickOutside = () => setRevealed(false);
+  if (error) {
+    console.log(error);
+  }
+
+  if (loading) {
+    return 'Loading';
+  }
   return (
     <div className="LoginControl">
-      <FirebaseAuthConsumer>
-        {({ isSignedIn, user }) => {
-          if (isSignedIn === true) {
-            return <LoggedIn revealed={revealed} setRevealed={setRevealed} user={user}/>
-          } else {
-            return <LoggedOut />
-          }
-        }}
-      </FirebaseAuthConsumer>
+      { user && 
+          <LoggedIn revealed={revealed} setRevealed={setRevealed} user={user}/>
+      }
+      { !user && 
+        <LoggedOut />
+      }
     </div>
   );
+  
+
 }
 
 const clickOutsideConfig = {

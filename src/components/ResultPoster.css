@@ -10,8 +10,8 @@
 }
 
 .ResultPoster img {
+  display: block;
   width: 100%;
-  height: 100%;
   border-radius: 0.5rem;
 }
 
@@ -67,4 +67,9 @@
   padding: 0.25rem 0.5rem;
   background: none;
   margin: 0.25rem;
+}
+
+.controls button.active {
+  background: white;
+  color: black;
 }
