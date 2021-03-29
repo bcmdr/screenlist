@@ -29,13 +29,15 @@ function AppHeader(props) {
               onClick={() => props.onFilterChange('liked')}>Liked</li>
           </ul>
         </nav>
-        <div className="menu-right">
-          <div
-            className={classNames({
-              active: props.filter === "search"
-            })} 
-            onClick={() => props.onFilterChange('search')}>Search</div>
-        </div>
+        <nav className="menu-right">
+          <ul>
+            <li
+              className={classNames({
+                active: props.filter === "search"
+              })} 
+              onClick={() => props.onFilterChange('search')}>Search</li>
+            </ul>
+        </nav>
       </div>
     </header>
   )
