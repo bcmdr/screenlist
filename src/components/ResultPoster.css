@@ -69,7 +69,7 @@
   margin: 0.25rem;
 }
 
-.controls button.active {
+.controls button.active, .controls button:hover {
   background: white;
   color: black;
 }
