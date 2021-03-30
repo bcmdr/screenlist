@@ -77,8 +77,12 @@ function App() {
     }
 
     // Seen when liked
-    if (statusName === 'liked' && !newStatuses.seen) {
+    if (statusName === 'liked' && newStatuses.liked && !newStatuses.seen) {
       newStatuses.seen = true;
+    }
+
+    if (statusName === 'seen' && !newStatuses.seen && newStatuses.liked) {
+      newStatuses.liked = false;
     }
 
     let movieRef = firebase.db.collection(`users/${user.uid}/movies`).doc(`${result.id}`);
