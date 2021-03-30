@@ -4,12 +4,12 @@ import classNames from "classnames";
 
 function AppHeader(props) {
   return (
-    <header className="AppHeader">
-      <div className="primary-header">
+    <>
+      <header className="primary-header">
         <div className="logo">ScreenList</div>
         <LoginControl></LoginControl>
-      </div>
-      <div className="secondary-header">
+      </header>
+      <header className="secondary-header">
         <nav className="menu-left">
           <ul>
             <li 
@@ -38,8 +38,8 @@ function AppHeader(props) {
               onClick={() => props.onFilterChange('search')}>Search</li>
             </ul>
         </nav>
-      </div>
-    </header>
+      </header>
+    </>
   )
 }
 

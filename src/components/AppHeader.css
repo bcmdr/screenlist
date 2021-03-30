@@ -1,5 +1,5 @@
-.AppHeader .primary-header {
-  padding: 1rem;
+.primary-header {
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,7 +7,7 @@
   color: white;
 }
 
-.AppHeader .logo {
+.logo {
   font-weight: bold;
 }
 
@@ -20,35 +20,34 @@ nav ul {
 
 nav ul li {
   display: inline-block;
-}
-
-.menu-right {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-}
-
-.menu-left {
-  padding: 1rem 2rem 1rem 1rem;
-  overflow: auto;
-  scroll-margin-right: 1rem;
-}
-
-.AppHeader .secondary-header {
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.10);
-}
-
-.AppHeader li {
   padding: 0.5rem;
   margin-right: 0.5rem;
   cursor: pointer;
 }
 
-.AppHeader .active {
+.menu-right {
+  display: flex;
+  align-items: center;
+}
+
+.menu-left {
+  overflow: auto;
+  scroll-margin-right: 1rem;
+}
+
+.secondary-header {
+  position: sticky;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.10);
+  z-index: 1;
+}
+
+nav ul li.active {
   background: #111;
   color: white;
   border-radius: 5px;
