@@ -48,7 +48,11 @@ function LoginControl() {
   }
 
   if (loading) {
-    return 'Loading';
+    return (
+      <button class="login-loading">
+        Loading
+      </button>
+    )
   }
   return (
     <div className="LoginControl">

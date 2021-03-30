@@ -4,6 +4,7 @@
 }
 
 .LoginControl > .avatar {
+  height: 32px;
   width: 32px;
   border-radius: 5px;
   margin-left: 1rem;
@@ -11,6 +12,16 @@
 }
 
 .LoginControl button {
+  background: white;
+  color: black;
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.login-loading {
+  height: 32px;
   background: white;
   color: black;
   border-radius: 5px;
