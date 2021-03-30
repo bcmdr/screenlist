@@ -47,9 +47,8 @@ function App() {
       let el = document.querySelector('.search input');
       el && el.focus();
       setCurrentResults([]);
-    }
-    if (filterName === "interested") {
-      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses.interested === true));
+    } else {
+      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
     }
   }
 
@@ -71,13 +70,21 @@ function App() {
     750
   )
 
-  const handleStatusUpdate = ({result, statusName, currentStatus}) => {
+  const handleStatusUpdate = ({result, statusName, currentStatuses}) => {
+    let newStatuses = { 
+      ...currentStatuses,
+      [statusName]: !currentStatuses[statusName]
+    }
+
+    // Seen when liked
+    if (statusName === 'liked' && !newStatuses.seen) {
+      newStatuses.seen = true;
+    }
+
     let movieRef = firebase.db.collection(`users/${user.uid}/movies`).doc(`${result.id}`);
     const newUserMovie = {
       result,
-      statuses: {
-        [statusName]: !currentStatus,
-      }
+      statuses: newStatuses
     }
     // Update Firestore
     movieRef.set(newUserMovie, {merge: true});

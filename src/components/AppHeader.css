@@ -26,18 +26,12 @@ nav ul li {
   padding: 1rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 0 0 0px white, -1px 0px 10px 0px rgba(0, 0, 0, .05);
 }
 
 .menu-left {
   padding: 1rem 2rem 1rem 1rem;
   overflow: auto;
   scroll-margin-right: 1rem;
-}
-
-.menu-right > div {
-  padding: 0.5rem;
-  cursor: pointer;
 }
 
 .AppHeader .secondary-header {
@@ -50,6 +44,7 @@ nav ul li {
 
 .AppHeader li {
   padding: 0.5rem;
+  margin-right: 0.5rem;
   cursor: pointer;
 }
 

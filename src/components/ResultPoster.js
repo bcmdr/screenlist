@@ -16,9 +16,17 @@ function ResultPoster(props){
           className={classNames({
             active: props.statuses.interested
           })} 
-          onClick={() => props.onStatusUpdate({result: props.result, statusName:'interested', currentStatus: !!props.statuses['interested']})}>Interested</button>
-        <button>Seen</button>
-        <button>Liked</button>
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'interested', currentStatuses: props.statuses})}>Interested</button>
+        <button 
+          className={classNames({
+            active: props.statuses.seen
+          })} 
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'seen', currentStatuses: props.statuses})}>Seen</button>
+        <button 
+          className={classNames({
+            active: props.statuses.liked
+          })} 
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'liked', currentStatuses: props.statuses})}>Liked</button>
       </div>
     </li>
   )
