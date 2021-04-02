@@ -49,7 +49,7 @@ function LoginControl() {
 
   if (loading) {
     return (
-      <button class="login-loading">
+      <button className="login-loading">
         Loading
       </button>
     )

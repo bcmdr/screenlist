@@ -1,0 +1,41 @@
+.ResultPreview {
+  z-index: 1;
+  position: sticky;
+  top: 45px;
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.5);
+  background: #111;
+  min-height: 250px;
+  max-height: 50vw;
+  background-position: top center;
+  background-size: cover;
+  /* padding-bottom: 1rem; */
+}
+
+.ResultPreview .info {
+  padding: 1rem;
+  color: white;
+  background:rgba(0, 0, 0, 0.8);
+  position: absolute;
+  bottom: 0; 
+  width: 100%;
+  max-width: 500px;
+}
+
+.ResultPreview .overview {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: white;
+  overflow: scroll;
+  max-height: 3rem;
+}
+
+.ResultPreview .hide-preview {
+  display: none;
+  font-size: 0.8rem;
+  color: white;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  cursor: pointer;
+}

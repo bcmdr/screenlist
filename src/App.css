@@ -1,5 +1,14 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
   background: #eee;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
 }
 
 main li {
@@ -19,7 +28,7 @@ main .results {
 }
 
 .search input {
-  width: calc(100% - 2rem);
+  width: 100%;
   padding: 1rem;
   font-size: 1rem;
   border: none;

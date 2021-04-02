@@ -15,7 +15,7 @@
   border-radius: 0.5rem;
 }
 
-.info {
+.ResultPoster .info {
   visibility: hidden;
   background: rgba(0, 0, 0, 0.9);
   color: white;
@@ -30,19 +30,21 @@
   border-bottom-right-radius: 0;
   overflow: auto;
   max-height: 75px;
+  cursor: pointer;
 }
 
-.info .title {
+.ResultPoster .info .title {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.info .year {
+.ResultPoster .info .year {
   margin-top: 0.5rem;
   font-weight: normal;
+  font-size: 0.75rem;
 }
 
-.controls {
+.ResultPoster .controls {
   visibility: hidden;
   background: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
@@ -59,7 +61,7 @@
   border-bottom-right-radius: 3px;
 }
 
-.controls button {
+.ResultPoster .controls button {
   flex-grow: 1;
   border: 1px solid white;
   border-radius: 3px;
@@ -67,9 +69,10 @@
   padding: 0.25rem 0.5rem;
   background: none;
   margin: 0.25rem;
+  cursor: pointer;
 }
 
-.controls button.active {
+.ResultPoster .controls button.active {
   background: white;
   color: black;
 }
