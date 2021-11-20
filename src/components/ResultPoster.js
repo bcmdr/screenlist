@@ -6,7 +6,7 @@ function ResultPoster(props){
 
   return (
     <li className="ResultPoster">
-      <img alt={props.result.title} src={`${props.imageConfig.secure_base_url}${props.imageConfig.poster_sizes[3]}${props.result.poster_path}`}></img>
+      <img alt={props.result.title} src={`${props.imageConfig.secure_base_url}${props.imageConfig.poster_sizes[3]}${props.result.poster_path}`} onClick={() => props.onPreviewSelect(props.result)}></img>
       <div className="info" onClick={() => props.onPreviewSelect(props.result)}>
         <div className="title">{props.result.title}</div>
         <div className="year">{props.result.release_date.split('-')[0]}</div>
