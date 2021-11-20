@@ -105,6 +105,7 @@ function App() {
   const handlePreviewSelect = (result) => {
     setPreviewSelected(result);
     const preview = document.getElementsByClassName("ResultPreview")[0];
+    if (!preview) return;
     preview.scrollTop = 0;
   }
 
