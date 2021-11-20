@@ -36,12 +36,12 @@
   max-width: 30rem;
 }
 
-.ResultPreview .overview:after {
+/* .ResultPreview .overview:after {
   content: "";
   display: block;
   height: 1rem;
   width: 100%;
-}
+} */
 
 .ResultPreview .hide-preview {
   display: none;
