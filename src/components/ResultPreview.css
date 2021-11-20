@@ -4,11 +4,11 @@
   top: 45px;
   box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.5);
   background: #111;
-  min-height: 350px;
-  max-height: 50vw;
+  min-height: 250px;
+  max-height: 40vw;
   background-position: top center;
   background-size: cover;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .ResultPreview .title {
@@ -23,9 +23,8 @@
   padding: 1rem;
   color: white;
   background:rgba(0, 0, 0, 0.6);
-  position: absolute;
-  bottom: 0; 
-  overflow: scroll;
+  overflow-y: auto;
+  max-width: 500px;
   margin: 1rem;
 }
 
