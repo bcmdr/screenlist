@@ -12,6 +12,7 @@ function App() {
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
+  const [sortType, setSortType] = useState("title");
   const [previewSelected, setPreviewSelected] = useState(null)
   const [user, loading, error] = useAuthState(firebase.auth);
 
@@ -38,7 +39,7 @@ function App() {
       })
       console.log(fetchedData)
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses.interested === true));
+      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses.interested === true).sort(sortBy[sortType]));
     };
     fetchData();
   }, [user]);
@@ -51,7 +52,7 @@ function App() {
       el && el.focus();
       setCurrentResults([]);
     } else {
-      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
+      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true).sort(sortBy[sortType]));
     }
   }
 
@@ -108,6 +109,61 @@ function App() {
     if (!preview) return;
     preview.scrollTop = 0;
   }
+  
+  const sortBy = {
+    title: (a, b) => {
+      return (a.result.title > b.result.title) ? 1 : -1;
+    },
+    year: (a, b) => {
+      if (a.result.release_date === b.result.release_date) return 0;
+      return (a.result.release_date > b.result.release_date) ? 1 : -1;
+    }
+
+  }
+  
+
+  const handleSortSelect = (sortOption) => {
+    // console.log(sortOption);
+    // if (sortType === sortOption) {
+    //   if (sortType === "year") {
+    //     sortOption = "yearInverted";
+    //   }
+    //   if (sortType === "yearInverted") {
+    //     sortOption = "year";
+    //   }
+    //   if (sortType === "title") {
+    //     sortOption = "titleInverted";
+    //   }
+    //   if (sortType === "titleInverted") {
+    //     sortOption = "title";
+    //   }
+    // }
+    setSortType(sortOption);
+
+    const compareFunctions = {
+      title: (a, b) => {
+        console.log('title sorting');
+        return (a.result.title > b.result.title) ? 1 : -1;
+      },
+      year: (a, b) => {
+        console.log('year sorting');
+        if (a.result.release_date === b.result.release_date) return 0;
+        return (a.result.release_date > b.result.release_date) ? 1 : -1;
+      },
+      titleInverted: (a, b) => {
+        console.log('title sorting');
+        return (a.result.title > b.result.title) ? -1 : 1;
+      },
+      yearInverted: (a, b) => {
+        console.log('year sorting');
+        return (a.result.release_date > b.result.release_date) ? -1 : 1;
+      }
+    }
+    let sortedResults = currentResults;
+    sortedResults.sort(compareFunctions[sortOption]);
+    setCurrentResults([...sortedResults]);
+    console.log(currentResults);
+  }
 
   return (
     <div className="App">
@@ -121,6 +177,13 @@ function App() {
         <ResultPreview result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
+          {filter !== 'search' && 
+            <section className="sort">
+              <div>Sort By</div>
+              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => handleSortSelect("title")}>Title</div>
+              <div className={`sort-option ${(sortType === 'year' || sortType === 'yearInverted') ? "active" : "" }`} onClick={() => handleSortSelect("year")}>Year</div>
+            </section>
+          }
           <section className="results">
             {currentResults && currentResults.map((result) => {
               if (result.result) {
@@ -130,6 +193,7 @@ function App() {
             })}
           </section>
       </main>
+      <footer>Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></footer>
     </div>
   );
 }

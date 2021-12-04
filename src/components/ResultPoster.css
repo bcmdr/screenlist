@@ -29,7 +29,6 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   overflow: auto;
-  max-height: 75px;
   cursor: pointer;
 }
 
