@@ -2,7 +2,7 @@ import './App.css';
 import AppHeader from './components/AppHeader';
 import ResultPoster from './components/ResultPoster';
 import ResultPreview from './components/ResultPreview';
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useMemo} from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
@@ -28,6 +28,16 @@ function App() {
     fetchData();
   }, []);
 
+  const sortBy = {
+    title: (a, b) => {
+      return (a.result?.title > b.result?.title) ? 1 : -1;
+    },
+    year: (a, b) => {
+      if (a.result?.release_date === b.result?.release_date) return 0;
+      return (a.result?.release_date > b.result?.release_date) ? 1 : -1;
+    }
+  };
+
   useEffect(() => {
     if(!user) return;
     const collectionRef = firebase.db.collection('users').doc(`${user.uid}`).collection('movies');
@@ -39,7 +49,7 @@ function App() {
       })
       console.log(fetchedData)
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses.interested === true).sort(sortBy[sortType]));
+      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses.interested === true));
     };
     fetchData();
   }, [user]);
@@ -52,7 +62,7 @@ function App() {
       el && el.focus();
       setCurrentResults([]);
     } else {
-      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true).sort(sortBy[sortType]));
+      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
     }
   }
 
@@ -109,61 +119,6 @@ function App() {
     if (!preview) return;
     preview.scrollTop = 0;
   }
-  
-  const sortBy = {
-    title: (a, b) => {
-      return (a.result.title > b.result.title) ? 1 : -1;
-    },
-    year: (a, b) => {
-      if (a.result.release_date === b.result.release_date) return 0;
-      return (a.result.release_date > b.result.release_date) ? 1 : -1;
-    }
-
-  }
-  
-
-  const handleSortSelect = (sortOption) => {
-    // console.log(sortOption);
-    // if (sortType === sortOption) {
-    //   if (sortType === "year") {
-    //     sortOption = "yearInverted";
-    //   }
-    //   if (sortType === "yearInverted") {
-    //     sortOption = "year";
-    //   }
-    //   if (sortType === "title") {
-    //     sortOption = "titleInverted";
-    //   }
-    //   if (sortType === "titleInverted") {
-    //     sortOption = "title";
-    //   }
-    // }
-    setSortType(sortOption);
-
-    const compareFunctions = {
-      title: (a, b) => {
-        console.log('title sorting');
-        return (a.result.title > b.result.title) ? 1 : -1;
-      },
-      year: (a, b) => {
-        console.log('year sorting');
-        if (a.result.release_date === b.result.release_date) return 0;
-        return (a.result.release_date > b.result.release_date) ? 1 : -1;
-      },
-      titleInverted: (a, b) => {
-        console.log('title sorting');
-        return (a.result.title > b.result.title) ? -1 : 1;
-      },
-      yearInverted: (a, b) => {
-        console.log('year sorting');
-        return (a.result.release_date > b.result.release_date) ? -1 : 1;
-      }
-    }
-    let sortedResults = currentResults;
-    sortedResults.sort(compareFunctions[sortOption]);
-    setCurrentResults([...sortedResults]);
-    console.log(currentResults);
-  }
 
   return (
     <div className="App">
@@ -180,12 +135,12 @@ function App() {
           {filter !== 'search' && 
             <section className="sort">
               <div>Sort By</div>
-              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => handleSortSelect("title")}>Title</div>
-              <div className={`sort-option ${(sortType === 'year' || sortType === 'yearInverted') ? "active" : "" }`} onClick={() => handleSortSelect("year")}>Year</div>
+              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
+              <div className={`sort-option ${(sortType === 'year' || sortType === 'yearInverted') ? "active" : "" }`} onClick={() => setSortType("year")}>Year</div>
             </section>
           }
           <section className="results">
-            {currentResults && currentResults.map((result) => {
+            {currentResults && currentResults.sort(sortBy[sortType]).map((result) => {
               if (result.result) {
                 result = result.result;
               }

@@ -29,7 +29,7 @@ main .sort {
   margin-bottom: 1rem;
   font-size: .8rem;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   align-items: center;
 }
 
