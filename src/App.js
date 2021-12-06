@@ -30,12 +30,20 @@ function App() {
 
   const sortBy = {
     title: (a, b) => {
-      if (a?.result?.title === b?.result?.title) return 0;
-      return (a?.result?.title > b?.result?.title) ? 1 : -1;
+      if (a.result) { 
+        a = a.result;
+        b = b.result;
+      }
+      if (a.title === b.title) return 0;
+      return (a.title > b.title) ? 1 : -1;
     },
     year: (a, b) => {
-      if (a?.result?.release_date === b?.result?.release_date) return 0;
-      return (a?.result?.release_date > b?.result?.release_date) ? -1 : 1;
+      if (a.result) { 
+        a = a.result;
+        b = b.result;
+      }
+      if (a.release_date === b.release_date) return 0;
+      return (a.release_date > b.release_date) ? -1 : 1;
     }
   };
 
@@ -130,13 +138,13 @@ function App() {
         <ResultPreview result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
-          {filter !== 'search' && 
+          {/* {filter !== 'search' &&  */}
             <section className="sort">
               <div>Sort By</div>
               <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
               <div className={`sort-option ${(sortType === 'year' || sortType === 'yearInverted') ? "active" : "" }`} onClick={() => setSortType("year")}>Year</div>
             </section>
-          }
+          {/* } */}
           <section className="results">
             {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
               if (result.result) {
