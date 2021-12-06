@@ -30,11 +30,12 @@ function App() {
 
   const sortBy = {
     title: (a, b) => {
-      return (a.result?.title > b.result?.title) ? 1 : -1;
+      if (a?.result?.title === b?.result?.title) return 0;
+      return (a?.result?.title > b?.result?.title) ? 1 : -1;
     },
     year: (a, b) => {
-      if (a.result?.release_date === b.result?.release_date) return 0;
-      return (a.result?.release_date > b.result?.release_date) ? 1 : -1;
+      if (a?.result?.release_date === b?.result?.release_date) return 0;
+      return (a?.result?.release_date > b?.result?.release_date) ? -1 : 1;
     }
   };
 
@@ -115,9 +116,6 @@ function App() {
 
   const handlePreviewSelect = (result) => {
     setPreviewSelected(result);
-    const preview = document.getElementsByClassName("ResultPreview")[0];
-    if (!preview) return;
-    preview.scrollTop = 0;
   }
 
   return (
@@ -140,7 +138,7 @@ function App() {
             </section>
           }
           <section className="results">
-            {currentResults && currentResults.sort(sortBy[sortType]).map((result) => {
+            {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
               if (result.result) {
                 result = result.result;
               }
