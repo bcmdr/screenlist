@@ -3,7 +3,7 @@ import './ResultPreview.css'
 function ResultPreview(props){
 
   return (
-    <section className="ResultPreview" onClick={props.onPreviewClick}
+    <section className="ResultPreview"
       style={{
         backgroundImage: `url(${props.imageConfig.secure_base_url}${props.imageConfig.backdrop_sizes[2]}${props.result.backdrop_path})`
       }}>
@@ -14,13 +14,19 @@ function ResultPreview(props){
         <div className="overview">
           {props.result.overview}
         </div>
-        <div className="hide-preview">
+        <div className="providers">
+          {props.providers?.flatrate?.map((provider) => {
+              return <a href={props.providers?.link}><img className="providers-logo" alt={provider.provider_name} src={`${props.imageConfig.secure_base_url}${props.imageConfig.logo_sizes[0]}${provider.logo_path}`} /></a>
+            })}
+        </div>
+        <div className="hide-preview" onClick={props.onPreviewClick}>
           Hide
         </div>
       </div>
       {/* <img alt={props.result.title} src={`${props.imageConfig.secure_base_url}${props.imageConfig.backdrop_sizes[2]}${props.result.backdrop_path}`}></img> */}
       
-    </section>)
+    </section>
+  )
 }
 
 export default ResultPreview;

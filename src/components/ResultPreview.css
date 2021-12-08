@@ -37,6 +37,13 @@
   max-width: 25rem;
 }
 
+.ResultPreview .providers-logo {
+  width: 2rem;
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.5);
+  border-radius: 5px; 
+  margin-right: 1rem;
+}
+
 /* .ResultPreview .overview:after {
   content: "";
   display: block;
@@ -46,6 +53,7 @@
 
 .ResultPreview .hide-preview {
   font-size: 0.8rem;
+  margin-top: 1rem;
   color: white;
   cursor: pointer;
   font-weight: bold;

@@ -13,6 +13,7 @@ function App() {
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
   const [sortType, setSortType] = useState("title");
+  const [previewProviders, setPreviewProviders] = useState([]);
   const [previewSelected, setPreviewSelected] = useState(null)
   const [user, loading, error] = useAuthState(firebase.auth);
 
@@ -122,7 +123,11 @@ function App() {
     setUserMovies(updatedUserMovies)
   }
 
-  const handlePreviewSelect = (result) => {
+  const handlePreviewSelect = async (result) => {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
+    const data = await response.json();
+    console.log(data.results.CA);
+    setPreviewProviders(data.results?.CA);
     setPreviewSelected(result);
   }
 
@@ -135,7 +140,7 @@ function App() {
         </div>
       }
       {previewSelected && 
-        <ResultPreview result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
+        <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
           {/* {filter !== 'search' &&  */}
