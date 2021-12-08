@@ -38,13 +38,22 @@ function App() {
       if (a.title === b.title) return 0;
       return (a.title > b.title) ? 1 : -1;
     },
-    year: (a, b) => {
+    newest: (a, b) => {
       if (a.result) { 
         a = a.result;
         b = b.result;
       }
       if (a.release_date === b.release_date) return 0;
       return (a.release_date > b.release_date) ? -1 : 1;
+    },
+    popularity: (a, b) => {
+      if (a.result) { 
+        a = a.result;
+        b = b.result;
+      }
+      console.log(a);
+      if (a.popularity === b.popularity) return 0;
+      return (a.popularity > b.popularity) ? -1 : 1;
     }
   };
 
@@ -71,6 +80,7 @@ function App() {
       let el = document.querySelector('.search input');
       el && el.focus();
       setCurrentResults([]);
+      setSortType("popularity");
     } else {
       setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
     }
@@ -147,7 +157,8 @@ function App() {
             <section className="sort">
               <div>Sort By</div>
               <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
-              <div className={`sort-option ${(sortType === 'year' || sortType === 'yearInverted') ? "active" : "" }`} onClick={() => setSortType("year")}>Year</div>
+              <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+              <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
             </section>
           {/* } */}
           <section className="results">
