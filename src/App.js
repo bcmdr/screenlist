@@ -12,7 +12,7 @@ function App() {
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
-  const [sortType, setSortType] = useState("title");
+  const [sortType, setSortType] = useState("popularity");
   const [previewProviders, setPreviewProviders] = useState([]);
   const [previewSelected, setPreviewSelected] = useState(null)
   const [user, loading, error] = useAuthState(firebase.auth);
@@ -59,6 +59,7 @@ function App() {
 
   useEffect(() => {
     if(!user) return;
+    if(filter === 'search') return;
     const collectionRef = firebase.db.collection('users').doc(`${user.uid}`).collection('movies');
     const fetchData = async () => {
       const fetchedData = {}
@@ -66,12 +67,11 @@ function App() {
       querySnapshot.forEach((doc) => {
         fetchedData[doc.id] = doc.data();
       })
-      console.log(fetchedData)
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData));
+      // setCurrentResults(Object.values(fetchedData));
     };
     fetchData();
-  }, [user]);
+  }, [user, filter]);
 
   const handleFilterChange = (filterName) => {
     setFilter(filterName);
@@ -180,7 +180,6 @@ function App() {
               if (result.known_for) {
                 result = result.known_for;
               }
-              console.log(result);
               return <ResultPoster imageConfig={tmdbConfig.images} result={result} statuses={(userMovies[result.id] && userMovies[result.id].statuses) || {}} key={result.id} user={user} onStatusUpdate={handleStatusUpdate} onPreviewSelect={handlePreviewSelect}></ResultPoster>
             })}
           </section>
