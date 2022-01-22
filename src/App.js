@@ -68,7 +68,7 @@ function App() {
       })
       console.log(fetchedData)
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses.interested === true));
+      setCurrentResults(Object.values(fetchedData));
     };
     fetchData();
   }, [user]);
