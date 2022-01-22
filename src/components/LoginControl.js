@@ -6,7 +6,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 function LoggedIn(props) {
-  console.log(props.user);
   return (
     <>
       {props.revealed && 

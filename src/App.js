@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
 
 function App() {
-  const [filter, setFilter] = useState('interested');
+  const [filter, setFilter] = useState('search');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
@@ -94,7 +94,7 @@ function App() {
   }
 
   async function handleSearchInputChange(event) {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=251ba64a492fa521304db43e5fa3d2ad&language=en-US&query=${event.target.value}&page=1&include_adult=false`);
+    const response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=251ba64a492fa521304db43e5fa3d2ad&language=en-US&query=${event.target.value}&page=1&include_adult=false`);
     const data = await response.json();
     setCurrentResults(data.results);
   }
@@ -104,7 +104,14 @@ function App() {
     750
   )
 
-  const handleStatusUpdate = ({result, statusName, currentStatuses}) => {
+  const handleStatusUpdate = async ({result, statusName, currentStatuses}) => {
+
+    if (!user) {
+      const googleAuthProvider = new firebase.firebase.auth.GoogleAuthProvider();
+      firebase.firebase.auth().signInWithPopup(googleAuthProvider);
+      return;
+    };
+
     let newStatuses = { 
       ...currentStatuses,
       [statusName]: !currentStatuses[statusName]
@@ -115,8 +122,13 @@ function App() {
       newStatuses.seen = true;
     }
 
+    // Not liked if not seen
     if (statusName === 'seen' && !newStatuses.seen && newStatuses.liked) {
       newStatuses.liked = false;
+    }
+
+    if ((statusName === 'seen') && newStatuses.seen) {
+      newStatuses.interested = false;
     }
 
     let movieRef = firebase.db.collection(`users/${user.uid}/movies`).doc(`${result.id}`);
@@ -136,14 +148,13 @@ function App() {
   const handlePreviewSelect = async (result) => {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
     const data = await response.json();
-    console.log(data.results.CA);
     setPreviewProviders(data.results?.CA);
     setPreviewSelected(result);
   }
 
   return (
     <div className="App">
-      <AppHeader filter={filter} onFilterChange={handleFilterChange}></AppHeader>
+      <AppHeader user={user} filter={filter} onFilterChange={handleFilterChange}></AppHeader>
       {filter === 'search' && 
         <div className="search">
           <input autoFocus placeholder="Search movie titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
@@ -166,6 +177,10 @@ function App() {
               if (result.result) {
                 result = result.result;
               }
+              if (result.known_for) {
+                result = result.known_for;
+              }
+              console.log(result);
               return <ResultPoster imageConfig={tmdbConfig.images} result={result} statuses={(userMovies[result.id] && userMovies[result.id].statuses) || {}} key={result.id} user={user} onStatusUpdate={handleStatusUpdate} onPreviewSelect={handlePreviewSelect}></ResultPoster>
             })}
           </section>

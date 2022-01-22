@@ -8,8 +8,8 @@ function ResultPoster(props){
     <li className="ResultPoster">
       <img alt={props.result.title} src={`${props.imageConfig.secure_base_url}${props.imageConfig.poster_sizes[3]}${props.result.poster_path}`} onClick={() => props.onPreviewSelect(props.result)}></img>
       <div className="info" onClick={() => props.onPreviewSelect(props.result)}>
-        <div className="title">{props.result.title}</div>
-        <div className="year">{props.result.release_date.split('-')[0]}</div>
+        <div className="title">{props.result.title || props.result.name}</div>
+        <div className="year">{props.result.release_date ? props.result.release_date.split('-')[0] : props.result.first_air_date?.split('-')[0]}</div>
       </div>
       <div className="controls">
         <button 

@@ -4,6 +4,8 @@
 
 body {
   background: #eee;
+  max-width: 1080px; 
+  margin: auto; 
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -21,7 +23,7 @@ main li {
 
 main .results {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
   grid-gap: 1rem;
 }
 
@@ -43,7 +45,7 @@ main .sort {
 }
 
 .sort-option.active {
-  background: #111;
+  background: black;
   color: white;
 }
 

@@ -9,8 +9,8 @@ function ResultPreview(props){
       }}>
       
       <div className="info">
-        <h3 className="title">{props.result.title}</h3>
-        <div className="year">{props.result.release_date.split('-')[0]}</div>
+        <h3 className="title">{props.result.title || props.result.name}</h3>
+        <div className="year">{props.result.release_date ? props.result.release_date.split('-')[0] : props.result.first_air_date?.split('-')[0]}</div>
         <div className="overview">
           {props.result.overview}
         </div>
