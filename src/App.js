@@ -61,6 +61,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log('effect running')
     if (!user) {
       setCurrentResults([]);
       return;
@@ -73,7 +74,7 @@ function App() {
         fetchedData[doc.id] = doc.data();
       })
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData));
+      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses['interested'] === true));
     };
     fetchData();
   }, [user]);
@@ -82,6 +83,7 @@ function App() {
     setFilter(filterName);
     setPreviewSelected(null);
     if (filterName === "search") {
+      setCurrentResults([]);
       let el = document.querySelector('.search input');
       el && el.focus();
       setCurrentResults([]);
@@ -178,7 +180,7 @@ function App() {
             <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
           </section>
           {(user && !loading && currentResults.length === 0) && 
-              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>search</b> to add movies and tv shows to your list.</section>
+              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV shows to your <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b> list.</section>
             }
           <section className="results">
             {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {

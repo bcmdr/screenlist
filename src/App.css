@@ -65,6 +65,7 @@ main .sort {
 }
 
 .no-results {
+  padding: 1rem;
   text-align: center;
 }
 
