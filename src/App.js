@@ -35,6 +35,10 @@ function App() {
         a = a.result;
         b = b.result;
       }
+      if (a.name) {
+        a.title = a.name;
+        a.title = a.name;
+      }
       if (a.title === b.title) return 0;
       return (a.title > b.title) ? 1 : -1;
     },

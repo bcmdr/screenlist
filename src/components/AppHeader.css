@@ -13,6 +13,7 @@ header {
 
 .logo {
   font-weight: bold;
+  cursor: pointer;
 }
 
 nav ul {
