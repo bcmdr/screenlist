@@ -9,6 +9,7 @@ function AppHeader(props) {
         <div className="logo" onClick={() => props.onFilterChange('interested')}>ScreenList</div>
         <LoginControl></LoginControl>
       </header>
+      {!props.user && <div class="header-buffer"></div>}
       {props.user &&
         <header className="secondary-header">
           <nav className="menu-left">
