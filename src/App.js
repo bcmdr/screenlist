@@ -2,20 +2,20 @@ import './App.css';
 import AppHeader from './components/AppHeader';
 import ResultPoster from './components/ResultPoster';
 import ResultPreview from './components/ResultPreview';
-import { useState, useEffect, useMemo} from 'react';
+import { useState, useEffect} from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
 
 function App() {
-  const [filter, setFilter] = useState('search');
+  const [filter, setFilter] = useState('interested');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
   const [sortType, setSortType] = useState("popularity");
   const [previewProviders, setPreviewProviders] = useState([]);
   const [previewSelected, setPreviewSelected] = useState(null)
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [user, loading] = useAuthState(firebase.auth);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +43,10 @@ function App() {
         a = a.result;
         b = b.result;
       }
+      if (a.first_air_date) {
+        a.release_date = a.first_air_date;
+        b.release_date = a.first_air_date;
+      }
       if (a.release_date === b.release_date) return 0;
       return (a.release_date > b.release_date) ? -1 : 1;
     },
@@ -51,15 +55,16 @@ function App() {
         a = a.result;
         b = b.result;
       }
-      console.log(a);
       if (a.popularity === b.popularity) return 0;
       return (a.popularity > b.popularity) ? -1 : 1;
     }
   };
 
   useEffect(() => {
-    if(!user) return;
-    if(filter === 'search') return;
+    if (!user) {
+      setCurrentResults([]);
+      return;
+    }
     const collectionRef = firebase.db.collection('users').doc(`${user.uid}`).collection('movies');
     const fetchData = async () => {
       const fetchedData = {}
@@ -68,10 +73,10 @@ function App() {
         fetchedData[doc.id] = doc.data();
       })
       setUserMovies(fetchedData);
-      // setCurrentResults(Object.values(fetchedData));
+      setCurrentResults(Object.values(fetchedData));
     };
     fetchData();
-  }, [user, filter]);
+  }, [user]);
 
   const handleFilterChange = (filterName) => {
     setFilter(filterName);
@@ -146,7 +151,9 @@ function App() {
   }
 
   const handlePreviewSelect = async (result) => {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
+    let type = 'movie';
+    if (result.media_type === 'tv') type = 'tv';
+    const response = await fetch(`https://api.themoviedb.org/3/${type}/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
     const data = await response.json();
     setPreviewProviders(data.results?.CA);
     setPreviewSelected(result);
@@ -155,30 +162,28 @@ function App() {
   return (
     <div className="App">
       <AppHeader user={user} filter={filter} onFilterChange={handleFilterChange}></AppHeader>
-      {filter === 'search' && 
+      {(!user || filter === 'search') && 
         <div className="search">
-          <input autoFocus placeholder="Search movie titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
+          <input autoFocus placeholder="Search Movie or TV Titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
         </div>
       }
       {previewSelected && 
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
-          {/* {filter !== 'search' &&  */}
-            <section className="sort">
-              <div>Sort By</div>
-              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
-              <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
-              <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
-            </section>
-          {/* } */}
+          <section className="sort">
+            <div>Sort By</div>
+            <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
+            <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
+            <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+          </section>
+          {(user && !loading && currentResults.length === 0) && 
+              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>search</b> to add movies and tv shows to your list.</section>
+            }
           <section className="results">
             {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
               if (result.result) {
                 result = result.result;
-              }
-              if (result.known_for) {
-                result = result.known_for;
               }
               return <ResultPoster imageConfig={tmdbConfig.images} result={result} statuses={(userMovies[result.id] && userMovies[result.id].statuses) || {}} key={result.id} user={user} onStatusUpdate={handleStatusUpdate} onPreviewSelect={handlePreviewSelect}></ResultPoster>
             })}
