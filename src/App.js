@@ -99,6 +99,7 @@ function App() {
 
   function handleKeyUp(event) {
     if (event.code === 'Enter') {
+      handleSearchInputChangeDebounced(event);
       let el = document.querySelector('.search input');
       el && el.blur()
     }
@@ -183,8 +184,8 @@ function App() {
             <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
             <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
           </section>
-          {(user && !loading && currentResults.length === 0) && 
-              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV shows to your <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b> list.</section>
+          {(user && !loading && currentResults?.length === 0) && 
+              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV Shows to your <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b> list.</section>
             }
           <section className="results">
             {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
@@ -195,7 +196,7 @@ function App() {
             })}
           </section>
       </main>
-      <footer>Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></footer>
+      <footer><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
     </div>
   );
 }
