@@ -106,6 +106,7 @@ function App() {
   }
 
   async function handleSearchInputChange(event) {
+    setPreviewSelected(null);
     const response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=251ba64a492fa521304db43e5fa3d2ad&language=en-US&query=${event.target.value}&page=1&include_adult=false`);
     const data = await response.json();
     setCurrentResults(data.results);
@@ -177,7 +178,7 @@ function App() {
       {previewSelected && 
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
-        <main>
+        <main className="width-container">
           <section className="sort">
             <div>Sort By</div>
             <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>

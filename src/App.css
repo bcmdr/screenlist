@@ -4,7 +4,6 @@
 
 body {
   background: #fafafa;
-  max-width: 1080px; 
   margin: auto; 
 }
 
@@ -22,8 +21,22 @@ a:hover {
   text-decoration: underline;
 }
 
+.width-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 1rem;
+}
+
+.flex-center {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+
 main {
-  padding: 1rem;
+  margin-top: 1rem;
 }
 
 main li {
@@ -60,7 +73,6 @@ main .sort {
 
 .search {
   padding: 1rem;
-  max-width: 100%;
 }
 
 .search input {

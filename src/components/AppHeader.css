@@ -4,9 +4,6 @@ header {
 
 .primary-header {
   padding: 0.5rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: black;
   color: white;
 }
@@ -46,7 +43,8 @@ nav ul li:not(:last-child) {
 .secondary-header {
   position: sticky;
   top: 0;
-  padding: 0.5rem 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background: white;
   display: flex;
   align-items: center;

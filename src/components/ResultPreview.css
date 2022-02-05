@@ -25,9 +25,9 @@
 }
 
 .ResultPreview .info {
-  padding: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   color: white;
-  max-width: 100%;
   background-image : linear-gradient(to right, 
                     rgba(0,0,0, 1), 
                     rgba(0,0,0, 0) 200%);
@@ -80,7 +80,4 @@
   color: white;
   cursor: pointer;
   font-weight: bold;
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
 }
