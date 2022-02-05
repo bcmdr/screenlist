@@ -12,10 +12,8 @@ function LoggedIn(props) {
         <button 
           className="sign-out" 
           onClick={() => {
-            firebase
-              .app()
-              .auth()
-              .signOut();
+            firebase.app().auth().signOut();
+            props.onSignOut()
           }}>Sign Out</button>
       }
       <img alt="Profile" src={props.user.photoURL} className="avatar" onClick={(event) => props.setRevealed(!props.revealed)}></img>
@@ -38,7 +36,7 @@ function LoggedOut(props) {
   );
 }
 
-function LoginControl() {
+function LoginControl(props) {
   const [revealed, setRevealed] = useState(false);
   const [user, loading, error] = useAuthState(firebase.auth());
   LoginControl.handleClickOutside = () => setRevealed(false);
@@ -56,7 +54,7 @@ function LoginControl() {
   return (
     <div className="LoginControl">
       { user && 
-          <LoggedIn revealed={revealed} setRevealed={setRevealed} user={user}/>
+          <LoggedIn onSignOut={props.onSignOut} revealed={revealed} setRevealed={setRevealed} user={user}/>
       }
       { !user && 
         <LoggedOut />

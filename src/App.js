@@ -167,9 +167,13 @@ function App() {
     setPreviewSelected(result);
   }
 
+  const handleSignOut = () => {
+    setPreviewSelected(null)
+  }
+
   return (
     <div className="App">
-      <AppHeader user={user} filter={filter} onFilterChange={handleFilterChange}></AppHeader>
+      <AppHeader user={user} filter={filter} onFilterChange={handleFilterChange} onSignOut={handleSignOut}></AppHeader>
       {(!user || filter === 'search') && 
         <div className="search width-container">
           <input autoFocus placeholder="Search Movie or TV Titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>

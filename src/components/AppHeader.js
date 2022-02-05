@@ -8,7 +8,7 @@ function AppHeader(props) {
       <header className="primary-header">
         <div className = "width-container flex-center">
           <div className="logo" onClick={() => props.onFilterChange('interested')}>ScreenList</div>
-          <LoginControl></LoginControl>
+          <LoginControl onSignOut={props.onSignOut}></LoginControl>
         </div>
       </header>
       {(!props.user || props.filter === "search") && <div class="header-buffer"></div>}
