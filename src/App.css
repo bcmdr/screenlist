@@ -72,7 +72,8 @@ main .sort {
 }
 
 .search {
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .search input {
