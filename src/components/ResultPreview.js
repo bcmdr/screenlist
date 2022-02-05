@@ -15,12 +15,13 @@ function ResultPreview(props){
           <div className="overview">
             {props.result.overview}
           </div>
-          <div className="width-container flex-center" style={{padding: "0", alignItems: "end"}} >
+          <div className="width-container flex-center" style={{padding: "0", alignItems: "flex-end"}} >
             <div className="providers">
               {props.providers && <div><a href={props.providers?.link}>Rent</a> | <a href={props.providers?.link}>Buy</a> {props.providers?.flatrate && <span>| <a href={props.providers?.link}>Stream</a></span>}</div>}
               {props.providers?.flatrate?.map((provider) => {
                   return <a href={props.providers?.link}><img className="providers-logo" alt={provider.provider_name} src={`${props.imageConfig.secure_base_url}${props.imageConfig.logo_sizes[2]}${provider.logo_path}`} /></a>
                 })}
+              {!props.providers && <div>Not Available to Stream</div>}
             </div>
             <div className="hide-preview" onClick={props.onPreviewClick}>
               Hide
