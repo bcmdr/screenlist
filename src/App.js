@@ -183,14 +183,25 @@ function App() {
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main className="width-container">
-          <section className="sort">
-            <div>Sort By</div>
-            <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
-            <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
-            <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
-          </section>
-          {(user && !loading && currentResults?.length === 0) && 
-              <section className="no-results">Use <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV Shows to your <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b> list.</section>
+          {(currentResults?.length > 0 || filter === "search") &&
+            <section className="sort">
+              <div>Sort By</div>
+              <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
+              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
+              <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+            </section>
+}
+          {(filter !== 'search' && currentResults?.length === 0) && 
+              <section className="no-results">
+                <h1>Track Your<br/> Movies</h1>
+                <p>Use&nbsp;
+                  <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV Shows to your&nbsp;
+                  <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b>,&nbsp;
+                  <b className="link" onClick={() => {handleFilterChange('seen')}}>Seen</b>, and&nbsp;
+                  <b className="link" onClick={() => {handleFilterChange('liked')}}>Liked</b>&nbsp;lists.
+                </p>
+                <p>Double-tap or click a preview poster to reveal its <strong>description</strong> and <strong>streaming providers.</strong></p>
+              </section>
             }
           <section className="results">
             {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
@@ -201,7 +212,7 @@ function App() {
             })}
           </section>
       </main>
-      <footer><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
+      <footer class="width-container"><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
     </div>
   );
 }
