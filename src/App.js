@@ -37,7 +37,7 @@ function App() {
       }
       if (a.name) {
         a.title = a.name;
-        a.title = a.name;
+        b.title = b.name;
       }
       if (a.title === b.title) return 0;
       return (a.title > b.title) ? 1 : -1;
@@ -49,7 +49,7 @@ function App() {
       }
       if (a.first_air_date) {
         a.release_date = a.first_air_date;
-        b.release_date = a.first_air_date;
+        b.release_date = b.first_air_date;
       }
       if (a.release_date === b.release_date) return 0;
       return (a.release_date > b.release_date) ? -1 : 1;
