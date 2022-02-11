@@ -11,7 +11,7 @@ function AppHeader(props) {
           <LoginControl onSignOut={props.onSignOut}></LoginControl>
         </div>
       </header>
-      {(!props.user || props.filter === "search") && <div class="header-buffer"></div>}
+      {(!props.user || props.filter === "search") && <div className="header-buffer"></div>}
       {props.user &&
         <header className="secondary-header">
           <div className="width-container flex-center">

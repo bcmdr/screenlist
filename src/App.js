@@ -31,28 +31,30 @@ function App() {
 
   const sortBy = {
     title: (a, b) => {
+      a = {...a};
+      b = {...b};
       if (a.result) { 
         a = a.result;
         b = b.result;
       }
-      if (a.name) {
-        a.title = a.name;
-        b.title = b.name;
+      if (a.title) {
+        console.log('title: ', a.title);
+        a.name = a.title;
+        b.name = b.title;
       }
-      if (a.title === b.title) return 0;
-      return (a.title > b.title) ? 1 : -1;
+      console.log('name: ', a.name);
+      if (!a.title && !a.name) console.log('nope')
+      if ((a.name === b.name)) return 0;
+      return ((a.name > b.name)) ? 1 : -1;
     },
     newest: (a, b) => {
       if (a.result) { 
         a = a.result;
         b = b.result;
       }
-      if (a.first_air_date) {
-        a.release_date = a.first_air_date;
-        b.release_date = b.first_air_date;
-      }
-      if (a.release_date === b.release_date) return 0;
-      return (a.release_date > b.release_date) ? -1 : 1;
+      if (a.release_date && (new Date(a.release_date) === new Date(b.release_date))) return 0;
+      if (a.first_air_date && (new Date(a.first_air_date) === new Date(b.first_air_date))) return 0;
+      return ((a.release_date && (new Date(a.release_date) > new Date(b.release_date))) || (a.first_air_date && (new Date(a.first_air_date) > new Date(b.first_air_date)))) ? -1 : 1;
     },
     popularity: (a, b) => {
       if (a.result) { 
@@ -204,7 +206,7 @@ function App() {
               </section>
             }
           <section className="results">
-            {currentResults && [...currentResults.sort(sortBy[sortType])].map((result) => {
+            {currentResults && [].concat(currentResults).sort(sortBy[sortType]).map((result) => {
               if (result.result) {
                 result = result.result;
               }
@@ -212,7 +214,7 @@ function App() {
             })}
           </section>
       </main>
-      <footer class="width-container"><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
+      <footer className="width-container"><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
     </div>
   );
 }
