@@ -39,16 +39,19 @@ function App() {
       let nameA = a.name ? a.name : a.title;
       let nameB = b.name ? b.name : b.title;
 
-      return ((nameA > nameB)) ? 1 : -1;
+      return (nameA > nameB) ? 1 : -1;
     },
     newest: (a, b) => {
       if (a.result) { 
         a = a.result;
         b = b.result;
       }
-      if (a.release_date && (new Date(a.release_date) === new Date(b.release_date))) return 0;
-      if (a.first_air_date && (new Date(a.first_air_date) === new Date(b.first_air_date))) return 0;
-      return ((a.release_date && (new Date(a.release_date) > new Date(b.release_date))) || (a.first_air_date && (new Date(a.first_air_date) > new Date(b.first_air_date)))) ? -1 : 1;
+      let releaseDateA = a.release_date ? new Date(a.release_date) : new Date(a.first_air_date);
+      let releaseDateB = b.release_date ? new Date(b.release_date) : new Date(b.first_air_date);
+
+      console.log(releaseDateA, releaseDateB);
+      return (releaseDateA > releaseDateB) ? -1 : 1;
+
     },
     popularity: (a, b) => {
       if (a.result) { 
