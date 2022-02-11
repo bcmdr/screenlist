@@ -31,21 +31,15 @@ function App() {
 
   const sortBy = {
     title: (a, b) => {
-      a = {...a};
-      b = {...b};
       if (a.result) { 
         a = a.result;
         b = b.result;
       }
-      if (a.title) {
-        console.log('title: ', a.title);
-        a.name = a.title;
-        b.name = b.title;
-      }
-      console.log('name: ', a.name);
-      if (!a.title && !a.name) console.log('nope')
-      if ((a.name === b.name)) return 0;
-      return ((a.name > b.name)) ? 1 : -1;
+
+      let nameA = a.name ? a.name : a.title;
+      let nameB = b.name ? b.name : b.title;
+
+      return ((nameA > nameB)) ? 1 : -1;
     },
     newest: (a, b) => {
       if (a.result) { 
