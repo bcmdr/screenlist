@@ -154,7 +154,7 @@ function App() {
     // Update Local State
     let updatedUserMovies = {...userMovies}
     updatedUserMovies[result.id] = newUserMovie;
-    setUserMovies(updatedUserMovies)
+    setUserMovies(updatedUserMovies);
   }
 
   const handlePreviewSelect = async (result) => {
@@ -168,6 +168,7 @@ function App() {
 
   const handleSignOut = () => {
     setPreviewSelected(null)
+    setCurrentResults([]);
   }
 
   return (
