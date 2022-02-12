@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "host": "npm run build; surge build"
+    "deploy": "npm run build; surge build screenlist.surge.sh"
   },
   "eslintConfig": {
     "extends": [
