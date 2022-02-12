@@ -60,7 +60,7 @@ a:hover {
 }
 
 main {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 main li {
@@ -74,6 +74,7 @@ main .results {
 }
 
 main .sort {
+  margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: .8rem;
   display: flex;
@@ -96,8 +97,8 @@ main .sort {
 }
 
 .search {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .search input {
@@ -117,9 +118,13 @@ input[type="text"] {
 .no-results {
   padding: 2rem;
   color: white;
-  background: black;
-  margin: 1rem auto;
-  border-radius: 5px;
+  background-color: #000000;
+  background-image: linear-gradient(
+    320deg,
+    hsl(200deg 100% 19%) 0%,
+    hsl(200deg 100% 13%) 23%,
+    hsl(0deg 0% 0%) 100%
+  );
 }
 
 .link {
@@ -131,7 +136,7 @@ input[type="text"] {
 }
 
 footer {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 1rem;
   font-weight: bold;

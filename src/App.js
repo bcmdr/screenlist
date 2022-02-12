@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
 
 function App() {
-  const [filter, setFilter] = useState('interested');
+  const [filter, setFilter] = useState('search');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
@@ -182,28 +182,23 @@ function App() {
       {previewSelected && 
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
-        <main className="width-container">
+        <main>
           {(currentResults?.length > 0 || filter === "search") &&
-            <section className="sort">
+            <section className="sort width-container">
               <div>Sort By</div>
               <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
               <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
               <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
             </section>
 }
-          {(filter !== 'search' && currentResults?.length === 0) && 
+          {(currentResults?.length === 0) && 
               <section className="no-results">
-                <h1>Track Your<br/> Movies</h1>
-                <p>Use&nbsp;
-                  <b className="link" onClick={() => {handleFilterChange('search')}}>Search</b> to add Movies and TV Shows to your&nbsp;
-                  <b className="link" onClick={() => {handleFilterChange('interested')}}>Interested</b>,&nbsp;
-                  <b className="link" onClick={() => {handleFilterChange('seen')}}>Seen</b>, and&nbsp;
-                  <b className="link" onClick={() => {handleFilterChange('liked')}}>Liked</b>&nbsp;lists.
-                </p>
-                <p>Double-tap or click a preview poster to reveal its <strong>description</strong> and <strong>streaming providers.</strong></p>
+                <h1>Track Your Movies</h1>
+                <p><b className="link" onClick={() => handleFilterChange("search")}>Search</b> for Movies and TV Shows to add them to your list.</p>
+                <p>Double-tap or click a preview poster to see its <strong>description</strong> and <strong>streaming providers.</strong></p>
               </section>
             }
-          <section className="results">
+          <section className="results width-container">
             {currentResults && [].concat(currentResults).sort(sortBy[sortType]).map((result) => {
               if (result.result) {
                 result = result.result;
