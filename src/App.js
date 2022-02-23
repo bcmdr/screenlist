@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
 
 function App() {
-  const [filter, setFilter] = useState('search');
+  const [filter, setFilter] = useState('interested');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
@@ -184,14 +184,14 @@ function App() {
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
-          {(currentResults?.length > 0 || filter === "search") &&
+          {(currentResults?.length > 0 || (filter === "search" && currentResults?.length > 0)) &&
             <section className="sort width-container">
               <div>Sort By</div>
               <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
               <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
               <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
             </section>
-}
+          }
           {(currentResults === undefined || currentResults?.length === 0) && 
               <section className="no-results">
                 <h1>Track Your Movies</h1>
