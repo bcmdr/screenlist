@@ -169,6 +169,7 @@ function App() {
   const handleSignOut = () => {
     setPreviewSelected(null)
     setCurrentResults([]);
+    handleFilterChange('search');
   }
 
   return (
@@ -191,11 +192,11 @@ function App() {
               <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
             </section>
 }
-          {(currentResults?.length === 0) && 
+          {(currentResults === undefined || currentResults?.length === 0) && 
               <section className="no-results">
                 <h1>Track Your Movies</h1>
-                <p><b className="link" onClick={() => handleFilterChange("search")}>Search</b> for Movies and TV Shows to add them to your list.</p>
-                <p>Double-tap or click a preview poster to see its <strong>description</strong> and <strong>streaming providers.</strong></p>
+                <p><b className="link" onClick={() => handleFilterChange("search")}>Search</b> for Movies and TV Shows to find where they are streaming.</p>
+                <p>Sign in to save titles to your <strong>Interested</strong>, <strong>Seen</strong>, and <strong>Liked</strong> lists.</p>
               </section>
             }
           <section className="results width-container">
