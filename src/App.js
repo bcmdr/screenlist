@@ -18,7 +18,7 @@ function App() {
   const [user, loading] = useAuthState(firebase.auth);
   const savedLocale = localStorage.getItem('locale');
   const [locale, setLocale] = useState(
-    savedLocale ? savedLocale : null 
+    savedLocale ? savedLocale : 'CA'
   );
   const [localeOptions, setLocaleOptions] = useState([]);
 
