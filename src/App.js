@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from "./firebase_config";
 
 function App() {
-  const [filter, setFilter] = useState('interested');
+  const [filter, setFilter] = useState('search');
   const [tmdbConfig, setTmdbConfig] = useState({});
   const [currentResults, setCurrentResults] = useState([]);
   const [userMovies, setUserMovies] = useState({})
@@ -16,17 +16,34 @@ function App() {
   const [previewProviders, setPreviewProviders] = useState([]);
   const [previewSelected, setPreviewSelected] = useState(null)
   const [user, loading] = useAuthState(firebase.auth);
+  const savedLocale = localStorage.getItem('locale');
+  const [locale, setLocale] = useState(
+    savedLocale ? savedLocale : null 
+  );
+  const [localeOptions, setLocaleOptions] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    window.localStorage.setItem('locale', locale);
+  }, [locale]);
+
+  useEffect(() => {
+    const fetchConfigData = async () => {
       const response = await fetch(
         'https://api.themoviedb.org/3/configuration?api_key=251ba64a492fa521304db43e5fa3d2ad',
       );
       const data = await response.json();
       setTmdbConfig(data);
     };
+    const fetchProviderData = async () => {
+      const response = await fetch(
+        'https://api.themoviedb.org/3/watch/providers/regions?api_key=251ba64a492fa521304db43e5fa3d2ad&language=en-US',
+      );
+      const data = await response.json();
+      setLocaleOptions(data.results);
+    };
  
-    fetchData();
+    fetchConfigData();
+    fetchProviderData();
   }, []);
 
   const sortBy = {
@@ -162,7 +179,7 @@ function App() {
     if (result.media_type === 'tv') type = 'tv';
     const response = await fetch(`https://api.themoviedb.org/3/${type}/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
     const data = await response.json();
-    setPreviewProviders(data.results?.CA);
+    setPreviewProviders(data.results[locale]);
     setPreviewSelected(result);
   }
 
@@ -170,6 +187,11 @@ function App() {
     setPreviewSelected(null)
     setCurrentResults([]);
     handleFilterChange('search');
+  }
+
+  const handleLocaleChange = (event) => {
+    console.log(event.target.value);
+    setLocale(event.target.value);
   }
 
   return (
@@ -194,7 +216,7 @@ function App() {
           }
           {(currentResults === undefined || currentResults?.length === 0) && 
               <section className="no-results">
-                <h1>Track Your Movies</h1>
+                <h1>Find and Track Your Movies and TV Shows</h1>
                 <p><b className="link" onClick={() => handleFilterChange("search")}>Search</b> for Movies and TV Shows to find where they are streaming.</p>
                 <p>Sign in to save titles to your <strong>Interested</strong>, <strong>Seen</strong>, and <strong>Liked</strong> lists.</p>
               </section>
@@ -208,7 +230,20 @@ function App() {
             })}
           </section>
       </main>
-      <footer className="width-container"><a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a></footer>
+      <footer className="width-container">
+        <div>
+          <label htmlFor="locale">Locale: </label>
+          <select name="locale" id="locale" onChange={handleLocaleChange}>
+            {localeOptions.map((localeOption) => {
+              console.log(locale, localeOption.iso_3166_1);
+              return <option selected={locale === localeOption.iso_3166_1} value={localeOption.iso_3166_1} key={localeOption.iso_3166_1}>{localeOption.iso_3166_1}</option>
+            })}
+          </select>
+        </div>
+        <div>
+          <a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a>
+        </div>
+      </footer>
     </div>
   );
 }
