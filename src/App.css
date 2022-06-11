@@ -73,10 +73,16 @@ main .results {
   grid-gap: 1rem;
 }
 
-main .sort {
+main .results-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .8rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: .8rem;
+}
+
+main .sort {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -137,11 +143,20 @@ input[type="text"] {
 
 footer {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   padding: 1rem;
   font-weight: bold;
   font-size: 0.8rem;
   text-align: right;
+}
+
+.powered-by a {
+  display: flex; 
+  align-items: center;
+}
+
+.powered-by img {
+  margin-left: 0.5rem;
 }

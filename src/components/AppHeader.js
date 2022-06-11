@@ -7,7 +7,7 @@ function AppHeader(props) {
     <>
       <header className="primary-header">
         <div className = "width-container flex-center">
-          <div className="logo">ScreenList</div>
+          <div className="logo"><a href="/">ScreenList</a></div>
           <LoginControl onSignOut={props.onSignOut}></LoginControl>
         </div>
       </header>

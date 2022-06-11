@@ -206,12 +206,23 @@ function App() {
         <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
-          {(currentResults?.length > 0 || (filter === "search" && currentResults?.length > 0)) &&
-            <section className="sort width-container">
-              <div>Sort By</div>
-              <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
-              <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
-              <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+          {(currentResults?.length > 0 || filter === "search") &&
+            <section className="results-menu width-container">
+              <div class="locale">
+                <label htmlFor="locale">Locale: </label>
+                <select name="locale" id="locale" onChange={handleLocaleChange}>
+                  {localeOptions.map((localeOption) => {
+                    console.log(locale, localeOption.iso_3166_1);
+                    return <option selected={locale === localeOption.iso_3166_1} value={localeOption.iso_3166_1} key={localeOption.iso_3166_1}>{localeOption.iso_3166_1}</option>
+                  })}
+                </select>
+              </div>
+              <div className="sort">
+                <div>Sort By</div>
+                <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
+                <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
+                <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+              </div>
             </section>
           }
           {(currentResults === undefined || currentResults?.length === 0) && 
@@ -231,16 +242,7 @@ function App() {
           </section>
       </main>
       <footer className="width-container">
-        <div>
-          <label htmlFor="locale">Locale: </label>
-          <select name="locale" id="locale" onChange={handleLocaleChange}>
-            {localeOptions.map((localeOption) => {
-              console.log(locale, localeOption.iso_3166_1);
-              return <option selected={locale === localeOption.iso_3166_1} value={localeOption.iso_3166_1} key={localeOption.iso_3166_1}>{localeOption.iso_3166_1}</option>
-            })}
-          </select>
-        </div>
-        <div>
+        <div class="powered-by">
           <a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a>
         </div>
       </footer>
