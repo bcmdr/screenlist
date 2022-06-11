@@ -175,10 +175,12 @@ function App() {
   }
 
   const handlePreviewSelect = async (result) => {
+    console.log(result);
     let type = 'movie';
     if (result.media_type === 'tv') type = 'tv';
     const response = await fetch(`https://api.themoviedb.org/3/${type}/${result.id}/watch/providers?api_key=251ba64a492fa521304db43e5fa3d2ad`);
     const data = await response.json();
+    console.log(data);
     setPreviewProviders(data.results[locale]);
     setPreviewSelected(result);
   }
@@ -190,13 +192,12 @@ function App() {
   }
 
   const handleLocaleChange = (event) => {
-    console.log(event.target.value);
     setLocale(event.target.value);
   }
 
   return (
     <div className="App">
-      <AppHeader user={user} filter={filter} onFilterChange={handleFilterChange} onSignOut={handleSignOut}></AppHeader>
+      <AppHeader user={user} filter={filter} locale={locale} localeOptions={localeOptions} onLocaleChange={handleLocaleChange} onFilterChange={handleFilterChange} onSignOut={handleSignOut}></AppHeader>
       {(!user || filter === 'search') && 
         <div className="search width-container">
           <input autoFocus placeholder="Search Movie or TV Titles..." onChange={handleSearchInputChangeDebounced} onKeyUp={handleKeyUp} onFocus={(event) => {event.target.setSelectionRange(0, event.target.value.length)}} type="text"></input>
@@ -208,15 +209,6 @@ function App() {
         <main>
           {(currentResults?.length > 0 || filter === "search") &&
             <section className="results-menu width-container">
-              <div class="locale">
-                <label htmlFor="locale">Locale: </label>
-                <select name="locale" id="locale" onChange={handleLocaleChange}>
-                  {localeOptions.map((localeOption) => {
-                    console.log(locale, localeOption.iso_3166_1);
-                    return <option selected={locale === localeOption.iso_3166_1} value={localeOption.iso_3166_1} key={localeOption.iso_3166_1}>{localeOption.iso_3166_1}</option>
-                  })}
-                </select>
-              </div>
               <div className="sort">
                 <div>Sort By</div>
                 <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
@@ -242,7 +234,7 @@ function App() {
           </section>
       </main>
       <footer className="width-container">
-        <div class="powered-by">
+        <div className="powered-by">
           <a href="https://www.themoviedb.org/">Powered by <img alt="TMDB" width="50px" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"></img></a>
         </div>
       </footer>

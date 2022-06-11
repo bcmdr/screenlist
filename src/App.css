@@ -75,7 +75,7 @@ main .results {
 
 main .results-menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   font-size: .8rem;
   margin-top: 1rem;

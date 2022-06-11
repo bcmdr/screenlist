@@ -7,7 +7,16 @@ function AppHeader(props) {
     <>
       <header className="primary-header">
         <div className = "width-container flex-center">
-          <div className="logo"><a href="/">ScreenList</a></div>
+          <div className="header-group">
+            <div className="logo"><a href="/">ScreenList</a></div>
+            <div className="locale">
+                <select name="locale" id="locale" onChange={props.onLocaleChange} value={props.locale}>
+                  {props.localeOptions.map((localeOption) => {
+                    return <option value={localeOption.iso_3166_1} key={localeOption.iso_3166_1}>{localeOption.native_name}</option>
+                  })}
+                </select>
+              </div>
+          </div>
           <LoginControl onSignOut={props.onSignOut}></LoginControl>
         </div>
       </header>
