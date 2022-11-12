@@ -35,9 +35,9 @@ function ResultPreview(props){
           </div>
           <div className="width-container flex-center" style={{padding: "0", alignItems: "flex-end"}} >
             <div className="providers">
-              {props.providers && <div><a href={props.providers?.link}>Rent</a> • <a href={props.providers?.link}>Buy</a> {props.providers?.flatrate && <span> • <a href={props.providers?.link}>Stream</a></span>}</div>}
+              {props.providers && <div><a target="_blank" href={props.providers?.link} rel="noreferrer">Rent</a> • <a target="_blank" href={props.providers?.link} rel="noreferrer">Buy</a> {props.providers?.flatrate && <span> • <a target="_blank" href={props.providers?.link} rel="noreferrer">Stream</a></span>}</div>}
               {props.providers?.flatrate?.map((provider) => {
-                  return <a href={props.providers?.link}><img className="providers-logo" alt={provider.provider_name} src={`${props.imageConfig.secure_base_url}${props.imageConfig.logo_sizes[2]}${provider.logo_path}`} /></a>
+                  return <a target="_blank" href={props.providers?.link} rel="noreferrer"><img className="providers-logo" alt={provider.provider_name} src={`${props.imageConfig.secure_base_url}${props.imageConfig.logo_sizes[2]}${provider.logo_path}`} /></a>
                 })}
               {!props.providers && <div>Not Available to Stream</div>}
             </div>

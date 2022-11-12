@@ -77,6 +77,9 @@ function App() {
       }
       if (a.popularity === b.popularity) return 0;
       return (a.popularity > b.popularity) ? -1 : 1;
+    },
+    random: (a, b) => {
+      return (Math.random() > .5) ? 1 : -1;
     }
   };
 
@@ -106,7 +109,6 @@ function App() {
       setCurrentResults([]);
       let el = document.querySelector('.search input');
       el && el.focus();
-      setCurrentResults([]);
       setSortType("popularity");
     } else {
       setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
@@ -208,7 +210,9 @@ function App() {
       }
         <main>
           {(currentResults?.length > 0 || filter === "search") &&
-            <section className="results-menu width-container">
+            <section className="results-menu width-container flex-space-between">
+              {(currentResults?.length > 0) && <div className={`sort-option ${sortType === 'random' ? "active" : "" }`} onClick={() => { setSortType('random'); setCurrentResults([].concat(currentResults.sort(sortBy[sortType])));}}>Shuffle</div> }
+              <div></div>
               <div className="sort">
                 <div>Sort By</div>
                 <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>

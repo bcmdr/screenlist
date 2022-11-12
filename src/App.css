@@ -2,6 +2,8 @@
   box-sizing: border-box;
 }
 
+html,body { height:100%; }
+
 body {
   background: #fafafa;
   margin: auto; 
@@ -75,14 +77,14 @@ main .results {
 
 main .results-menu {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   font-size: .8rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-main .sort {
+.sort {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -95,6 +97,10 @@ main .sort {
   box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.10);
   margin-left: 0.5rem;
   cursor: pointer;
+}
+
+main .sort-option:first-child {
+  margin-left: 0;
 }
 
 .sort-option.active {
