@@ -231,6 +231,9 @@ function App() {
                 <h1>Find and Track Your Movies and TV Shows</h1>
                 <p><b className="link" onClick={() => handleFilterChange("search")}>Search</b> for Movies and TV Shows to find where they are streaming.</p>
                 <p>Sign in to save titles to your <strong>Interested</strong>, <strong>Seen</strong>, and <strong>Liked</strong> lists.</p>
+                <img class="qr-code" alt="ScreenList QR Code" src="/screenlist-qr-code.svg"></img>
+                <img class="up-arrow" alt="Up Arrow" src="/up-arrow.svg"></img>
+                <p>Scan to Share</p>
               </section>
             }
           <section className="results width-container">

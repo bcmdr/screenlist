@@ -22,6 +22,11 @@ main p:nth-child(3) {
   font-size: 1rem;
 }
 
+main p:last-child {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
@@ -36,6 +41,11 @@ main h1 {
   max-width: 420px;
   margin: 2rem auto;
   line-height: 1em;
+}
+
+img {
+  display: block;
+  margin: auto;
 }
 
 a {
@@ -137,6 +147,18 @@ input[type="text"] {
     hsl(200deg 100% 13%) 23%,
     hsl(0deg 0% 0%) 100%
   );
+  text-align: center;
+}
+
+.qr-code {
+  max-width: 150px;
+  margin: auto;
+}
+
+.up-arrow {
+  border-radius: 100%;
+  max-width: 35px;
+  margin-top: 2rem;
 }
 
 .link {
@@ -165,4 +187,5 @@ footer {
 
 .powered-by img {
   margin-left: 0.5rem;
+  margin-bottom: 1rem;
 }
