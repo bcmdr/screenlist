@@ -76,8 +76,29 @@
 
 .ResultPreview .hide-preview {
   font-size: 0.75rem;
-
   color: white;
   cursor: pointer;
   font-weight: bold;
+}
+
+.ResultPreview .controls {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ResultPreview .controls button {
+  font-size: 0.75em;
+  flex-grow: 1;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.ResultPreview .controls button.active {
+  background: white;
+  color: black;
 }

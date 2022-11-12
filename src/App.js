@@ -156,7 +156,7 @@ function App() {
       newStatuses.liked = false;
     }
 
-    if ((statusName === 'seen') && newStatuses.seen) {
+    if (((statusName === 'seen') && newStatuses.seen) || ((statusName === 'liked') && newStatuses.liked)) {
       newStatuses.interested = false;
     }
 
@@ -204,7 +204,7 @@ function App() {
         </div>
       }
       {previewSelected && 
-        <ResultPreview providers={previewProviders} result={previewSelected} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
+        <ResultPreview providers={previewProviders} result={previewSelected} statuses={(userMovies[previewSelected.id] && userMovies[previewSelected.id].statuses) || {}} onStatusUpdate={handleStatusUpdate} imageConfig={tmdbConfig.images} onPreviewClick={() => {setPreviewSelected(null)}}></ResultPreview>
       }
         <main>
           {(currentResults?.length > 0 || filter === "search") &&
