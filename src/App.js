@@ -94,7 +94,7 @@ function App() {
         fetchedData[doc.id] = doc.data();
       })
       setUserMovies(fetchedData);
-      setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses['interested'] === true));
+      //setCurrentResults(Object.values(fetchedData).filter((value) => value.statuses['interested'] === true));
     };
     fetchData();
   }, [user]);
