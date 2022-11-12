@@ -111,7 +111,7 @@ function App() {
       el && el.focus();
       setSortType("popularity");
     } else {
-      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true));
+      setCurrentResults(Object.values(userMovies).filter((value) => value.statuses[filterName] === true).sort(sortBy[sortType]));
     }
   }
 
@@ -197,6 +197,11 @@ function App() {
     setLocale(event.target.value);
   }
 
+  const handleUpdateSortType = (sortType) => {
+    setSortType(sortType);
+    setCurrentResults([...currentResults].sort(sortBy[sortType]));
+  }
+
   return (
     <div className="App">
       <AppHeader user={user} filter={filter} locale={locale} localeOptions={localeOptions} onLocaleChange={handleLocaleChange} onFilterChange={handleFilterChange} onSignOut={handleSignOut}></AppHeader>
@@ -211,13 +216,13 @@ function App() {
         <main>
           {(currentResults?.length > 0 || filter === "search") &&
             <section className="results-menu width-container flex-space-between">
-              {(currentResults?.length > 0) && <div className={`sort-option ${sortType === 'random' ? "active" : "" }`} onClick={() => { setSortType('random'); setCurrentResults([].concat(currentResults.sort(sortBy[sortType])));}}>Shuffle</div> }
+              {(currentResults?.length > 0) && <div className={`sort-option ${sortType === 'random' ? "active" : "" }`} onClick={() => { handleUpdateSortType('random')}}>Shuffle</div> }
               <div></div>
               <div className="sort">
                 <div>Sort By</div>
-                <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => setSortType("popularity")}>Popular</div>
-                <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => setSortType("title")}>Title</div>
-                <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => setSortType("newest")}>Newest</div>
+                <div className={`sort-option ${sortType === 'popularity' ? "active" : "" }`} onClick={() => { handleUpdateSortType("popularity")}}>Popular</div>
+                <div className={`sort-option ${(sortType === 'title' || sortType === 'titleInverted') ? "active" : "" }`} onClick={() => { handleUpdateSortType("title")}}>Title</div>
+                <div className={`sort-option ${(sortType === 'newest' || sortType === 'newestInverted') ? "active" : "" }`} onClick={() => { handleUpdateSortType("newest")}}>Newest</div>
               </div>
             </section>
           }
@@ -229,7 +234,7 @@ function App() {
               </section>
             }
           <section className="results width-container">
-            {currentResults && [].concat(currentResults).sort(sortBy[sortType]).map((result) => {
+            {currentResults && [...currentResults].map((result) => {
               if (result.result) {
                 result = result.result;
               }
