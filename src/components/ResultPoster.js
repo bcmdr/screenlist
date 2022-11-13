@@ -11,25 +11,23 @@ function ResultPoster(props){
         <div className="title">{props.result.title || props.result.name}</div>
         <div className="year">{props.result.release_date ? props.result.release_date.split('-')[0] : props.result.first_air_date?.split('-')[0]}</div>
       </div>
-      {props.user && 
-        <div className="controls">
-          <button 
-            className={classNames({
-              active: props.statuses.interested
-            })} 
-            onClick={() => props.onStatusUpdate({result: props.result, statusName:'interested', currentStatuses: props.statuses})}>Interested</button>
-          <button 
-            className={classNames({
-              active: props.statuses.seen
-            })} 
-            onClick={() => props.onStatusUpdate({result: props.result, statusName:'seen', currentStatuses: props.statuses})}>Seen</button>
-          <button 
-            className={classNames({
-              active: props.statuses.liked
-            })} 
-            onClick={() => props.onStatusUpdate({result: props.result, statusName:'liked', currentStatuses: props.statuses})}>Liked</button>
-        </div>
-      }
+      <div className="controls">
+        <button 
+          className={classNames({
+            active: props.statuses.interested
+          })} 
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'interested', currentStatuses: props.statuses})}>Interested</button>
+        <button 
+          className={classNames({
+            active: props.statuses.seen
+          })} 
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'seen', currentStatuses: props.statuses})}>Seen</button>
+        <button 
+          className={classNames({
+            active: props.statuses.liked
+          })} 
+          onClick={() => props.onStatusUpdate({result: props.result, statusName:'liked', currentStatuses: props.statuses})}>Liked</button>
+      </div>
     </li>
   )
 }
